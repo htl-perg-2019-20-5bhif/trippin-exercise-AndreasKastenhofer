@@ -21,10 +21,10 @@ namespace trippin_exercise
             IEnumerable<UserFromFile> users = await readJsonFileAsync();
 
             // Check if User exists
-            await checkIfUserExists(users);
+            await checkIfUserExistsAsync(users);
         }
 
-        private static async Task checkIfUserExists(IEnumerable<UserFromFile> users)
+        private static async Task checkIfUserExistsAsync(IEnumerable<UserFromFile> users)
         {
             foreach (var user in users)
             {
