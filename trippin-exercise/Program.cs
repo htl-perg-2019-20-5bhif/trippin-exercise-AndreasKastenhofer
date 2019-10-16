@@ -18,7 +18,7 @@ namespace trippin_exercise
         static async Task Main(string[] args)
         {
             // Read File
-            IEnumerable<UserFromFile> users = await readJsonFile();
+            IEnumerable<UserFromFile> users = await readJsonFileAsync();
 
             // Check if User exists
             await checkIfUserExists(users);
@@ -33,12 +33,12 @@ namespace trippin_exercise
                 if (!userResponse.IsSuccessStatusCode)
                 {
                     // add User (post-request)
-                    await postUser(user);
+                    await postUserAsync(user);
                 }
             }
         }
 
-        private static async Task postUser(UserFromFile user)
+        private static async Task postUserAsync(UserFromFile user)
         {
             var content = new StringContent(JsonSerializer.Serialize(new User(user)), Encoding.UTF8, "application/json");
             var userPostResponse = await HttpClient.PostAsync("People", content);
@@ -54,7 +54,7 @@ namespace trippin_exercise
             }
         }
 
-        private static async Task<IEnumerable<UserFromFile>> readJsonFile()
+        private static async Task<IEnumerable<UserFromFile>> readJsonFileAsync()
         {
             var file = await File.ReadAllTextAsync("users.json");
             IEnumerable<UserFromFile> users = JsonSerializer.Deserialize<IEnumerable<UserFromFile>>(file);
